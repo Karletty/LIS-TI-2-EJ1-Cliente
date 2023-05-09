@@ -6,6 +6,7 @@ const Header = () => {
       const navigate = useNavigate();
 
       const handleClick = async () => {
+            usersServices.logout();
             localStorage.removeItem('user');
             navigate('/')
       }

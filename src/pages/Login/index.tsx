@@ -20,6 +20,9 @@ const Login = () => {
             e.preventDefault();
             if (email !== '' && pass !== '') {
                   usersServices.login(email, pass).then(response => {
+                        if (response) {
+                              localStorage.setItem('user', JSON.stringify(response.data));
+                        }
                         navigate("/redeemCoupon")
                   }).catch(error => console.log(error));
             }

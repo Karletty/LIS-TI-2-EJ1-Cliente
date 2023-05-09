@@ -13,7 +13,7 @@ const Home = () => {
             if (!localStorage.getItem('user')) {
                   navigate("/");
             }
-      }, [couponState]);
+      }, [couponState, navigate]);
 
       const hideState = () => {
             setCouponState('')
