@@ -1,11 +1,13 @@
+import { useNavigate } from "react-router-dom";
 import { usersServices } from "../../../services/usersServices";
 
 
 const Header = () => {
+      const navigate = useNavigate();
 
       const handleClick = async () => {
-            const response = await usersServices['logout'];
-            console.log(response);
+            localStorage.removeItem('user');
+            navigate('/')
       }
 
       return (
