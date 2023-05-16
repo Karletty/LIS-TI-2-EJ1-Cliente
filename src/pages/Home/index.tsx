@@ -7,6 +7,7 @@ import { couponsServices } from '../../services/couponsService';
 const Home = () => {
       const [couponId, setCouponId] = useState('');
       const [couponState, setCouponState] = useState('');
+      const [error, setError] = useState('');
       const navigate = useNavigate();
 
       useEffect(() => {
@@ -16,7 +17,8 @@ const Home = () => {
       }, [couponState, navigate]);
 
       const hideState = () => {
-            setCouponState('')
+            setCouponState('');
+            setError('');
       }
 
       const handleSubmit = (e: any) => {
@@ -28,9 +30,13 @@ const Home = () => {
                         if (couponId.includes(user.employee.company_id)) {
                               couponsServices.redeemCoupon(couponId).then(response => {
                                     console.log(response);
-                                    setCouponState('El cupón fue canjeado')
+                                    setCouponState('El cupón fue canjeado');
                                     setTimeout(hideState, 2000);
                               });
+                        }
+                        else{
+                              setError('El cupón no pertenece a esta empresa');
+                              setTimeout(hideState, 2000);
                         }
                   }
             }
@@ -39,6 +45,7 @@ const Home = () => {
       return (
             <>
                   {couponState && <Alert key='success' variant='success'>{couponState}</Alert>}
+                  {error && <Alert key='danger' variant='danger'>{error}</Alert>}
 
                   <form action='get' onSubmit={handleSubmit}>
                         <Input
